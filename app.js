@@ -2,14 +2,18 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const https = require("https");
 app = express();
-app.use(bodyparser.urlencoded({extended:true})) //Makes form data accessible via req.body.
+app.use(express.urlencoded({ extended: true })); //Makes form data accessible via req.body.
 app.get("/",function(req,res){
     res.sendFile(__dirname+"/public/home.html");
 });
 app.get("/details",function(req,res){
-    res.sendFile(__dirname+"/public/details.html")
+    const val = req.query.value;
+    console.log(val);
+    res.sendFile(__dirname+"/public/details.html");
 });
 app.post("/details", (req, res) => {
+    const type = req.body.value;
+    console.log(type);
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     const a = req.body.address;
     const r = req.body.radius;
@@ -37,7 +41,7 @@ app.post("/details", (req, res) => {
                 }
                 console.log(`${lat},${lon}`)
                 // Second API call using the latitude and longitude
-                const url2 = `https://api.geoapify.com/v2/places?categories=accommodation.apartment&filter=circle:${lon},${lat},${r}&limit=20&apiKey=${mykey}`;
+                const url2 = `https://api.geoapify.com/v2/places?categories=accommodation.${type}&filter=circle:${lon},${lat},${r}&limit=20&apiKey=${mykey}`;
                 https.get(url2, (response2) => {
                     let data2 = "";
 
@@ -86,5 +90,5 @@ app.post("/details", (req, res) => {
     });
 });
 app.listen(2000,function(req,res){
-    console.log("Port running in 2000");
+    console.log("port running in 2000");
 });
