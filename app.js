@@ -7,13 +7,29 @@ app.get("/",function(req,res){
     res.sendFile(__dirname+"/public/home.html");
 });
 app.get("/details",function(req,res){
-    const val = req.query.value;
-    console.log(val);
+    const val = req.query.value;  //getting query paramaters
     res.sendFile(__dirname+"/public/details.html");
 });
 app.post("/details", (req, res) => {
+    const ac = req.body.AC;
+    const lift = req.body.lift;
+    const net = req.body.internet;
+    let cond;
+    if((ac && lift) || (ac && lift && net) || (ac) || (ac && net)){
+        cond = "internet_access,wheelchair";
+    }
+    else if(lift){
+        cond = "wheelchair";
+    }
+    else if(net){
+        cond = "internet_access";
+    }
+    else{
+        cond = null;
+    }
+    console.log(cond);
+    const results = req.body.no_results;
     const type = req.body.value;
-    console.log(type);
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     const a = req.body.address;
     const r = req.body.radius;
@@ -41,10 +57,16 @@ app.post("/details", (req, res) => {
                 }
                 console.log(`${lat},${lon}`)
                 // Second API call using the latitude and longitude
-                const url2 = `https://api.geoapify.com/v2/places?categories=accommodation.${type}&filter=circle:${lon},${lat},${r}&limit=20&apiKey=${mykey}`;
+                let url2;
+                if (cond){
+                    url2 = `https://api.geoapify.com/v2/places?categories=accommodation.${type}&conditions=${cond} &filter=circle:${lon},${lat},${r}&limit=${results}&apiKey=${mykey}`;
+                }
+                else{
+                    url2 = `https://api.geoapify.com/v2/places?categories=accommodation.${type} &filter=circle:${lon},${lat},${r}&limit=${results}&apiKey=${mykey}`;
+                }
+                console.log(url2);
                 https.get(url2, (response2) => {
                     let data2 = "";
-
                     response2.on("data", (chunk) => {
                         data2 += chunk;
                     });
@@ -56,6 +78,7 @@ app.post("/details", (req, res) => {
                             const len = arr.length;
                             console.log(len);
                             for(let i = 0;i<len;i++){
+                                // if hostel have no name then it wont be displayed 
                                 if (detailsData.features[i].properties.name){
                                 res.write(Buffer.from(detailsData.features[i]?.properties?.name,'utf-8') + "\n");
                                 res.write(Buffer.from(detailsData.features[i]?.properties?.formatted,'utf-8') + "\n"+"\n");

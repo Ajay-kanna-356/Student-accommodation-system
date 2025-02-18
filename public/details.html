@@ -7,18 +7,34 @@
 </head>
 <body>
 <form id="searchForm" action="/details" method="post">
-    <label>Enter address</label>
+    <label>Enter address:</label>
     <input type="text" name="address">
-    <label>Enter radius in meters</label>
-    <input type="number" name="radius">
-    <input type="hidden" id="valueField" name="value">
+    <br><br>
+    <label>Enter radius in meters:</label>
+    <input type="number" min="1" name="radius">
+    <!-- for getting type hostel or apartment -->
+    <input type="hidden" id="valueField" name="value">   
+    <br><br>
+    <label>Facilities: </label>
+    <label>AC</label>
+    <input type="checkbox" name="AC">
+    <label>Free Internet Access</label>
+    <input type="checkbox" name="internet">
+    <label>Lift</label>
+    <input type="checkbox" name="lift">
+    <br><br>
+    <label>Enter no of results:</label>
+    <input type="number" min="1" name="no_results">
+    <br><br>
     <button type="submit">Search</button>
 </form>
 
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search); 
     const val = urlParams.get("value");
     document.getElementById("valueField").value = val;
 </script>
 </body>
 </html>
+<!-- window.location.search retrieves the query string from the current URL (everything after the ?).
+URLSearchParams is a built-in JavaScript object that helps parse and manipulate query strings -->
