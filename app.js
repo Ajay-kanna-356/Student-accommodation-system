@@ -28,11 +28,11 @@ app.post("/details", (req, res) => {
         cond = null;
     }
     console.log(cond);
-    const results = req.body.no_results;
+    const results = req.body.no_results || 20;
     const type = req.body.value;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     const a = req.body.address;
-    const r = req.body.radius;
+    const r = req.body.radius*1000;
     const mykey = "4b5bc48ab4ab4bb1aa76d86232668660";
     const url1 = `https://api.geoapify.com/v1/geocode/search?text=${a}&limit=1&apiKey=${mykey}`;
 
@@ -80,9 +80,20 @@ app.post("/details", (req, res) => {
                             for(let i = 0;i<len;i++){
                                 // if hostel have no name then it wont be displayed 
                                 if (detailsData.features[i].properties.name){
-                                res.write(Buffer.from(detailsData.features[i]?.properties?.name,'utf-8') + "\n");
-                                res.write(Buffer.from(detailsData.features[i]?.properties?.formatted,'utf-8') + "\n"+"\n");
-                                }
+                                res.write(Buffer.from("Name : " + detailsData.features[i]?.properties?.name,'utf-8') + "\n");
+                                res.write(Buffer.from("Address : " + detailsData.features[i]?.properties?.formatted,'utf-8') + "\n");
+                                    if (detailsData.features[i].properties.datasource.raw.email){
+                                        res.write(Buffer.from("Email ID : " + detailsData.features[i].properties.datasource.raw.email,'utf-8')+"\n");
+                                    }
+                                    if (detailsData.features[i].properties.datasource.raw.phone){
+                                        res.write(Buffer.from("Phone NO : " + detailsData.features[i].properties.datasource.raw.phone,'utf-8')+"\n");
+                                        }
+                                    if (detailsData.features[i].properties.website){
+                                        res.write(Buffer.from("Website : "+ detailsData.features[i].properties.website,'utf-8')+"\n");
+                                    }
+                                    res.write("\n");
+                            }
+
                             }
                             
                             //we cant write json format so converting it to string
