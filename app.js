@@ -55,7 +55,6 @@ app.post("/details", (req, res) => {
                     res.write("Could not fetch latitude and longitude.");
                     return res.end();
                 }
-                console.log(`${lat},${lon}`)
                 // Second API call using the latitude and longitude
                 let url2;
                 if (cond){
@@ -91,9 +90,25 @@ app.post("/details", (req, res) => {
                                     if (detailsData.features[i].properties.website){
                                         res.write(Buffer.from("Website : "+ detailsData.features[i].properties.website,'utf-8')+"\n");
                                     }
+                                    let baseprice;
+                                    if (type == "apartment"){
+                                         baseprice = 14000;
+                                    }
+                                    else{
+                                        baseprice = 5000;
+                                    }
+                                    if(detailsData.features[i]?.properties?.facilities?.internet_access && detailsData.features[i]?.properties?.facilities?.wheelchair){
+                                        baseprice += 5000;
+                                    }
+                                    else if(detailsData.features[i]?.properties?.facilities?.wheelchair){
+                                        baseprice += 2000;
+                                    }
+                                    else if (detailsData.features[i]?.properties?.facilities?.internet_access){
+                                        baseprice += 1000;
+                                    }
+                                    res.write(Buffer.from("The approximate price is:"+baseprice+"-"+(baseprice+5000),'utf-8')+ "\n");
                                     res.write("\n");
                             }
-
                             }
                             
                             //we cant write json format so converting it to string
