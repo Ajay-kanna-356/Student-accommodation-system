@@ -1,7 +1,10 @@
 const express = require("express");
 const bodyparser = require("body-parser");
 const https = require("https");
+const path = require('path');
 app = express();
+app.set('view engine','ejs');
+app.set('views', path.resolve('./views')); // Set views folder
 app.use(express.urlencoded({ extended: true })); //Makes form data accessible via req.body.
 app.get("/",function(req,res){
     res.sendFile(__dirname+"/public/home.html");
@@ -30,7 +33,6 @@ app.post("/details", (req, res) => {
     console.log(cond);
     const results = req.body.no_results || 20;
     const type = req.body.value;
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     const a = req.body.address;
     const r = req.body.radius*1000;
     const mykey = "4b5bc48ab4ab4bb1aa76d86232668660";
@@ -75,45 +77,39 @@ app.post("/details", (req, res) => {
                             const detailsData = JSON.parse(data2);
                             let arr = detailsData.features;
                             const len = arr.length;
-                            console.log(len);
+                            let result = [];
                             for(let i = 0;i<len;i++){
                                 // if hostel have no name then it wont be displayed 
+                                //  ? optional chaining will prevent an error and just return undefined if any property isnt available 
+                                let baseprice;
+                                if (type == "apartment"){
+                                     baseprice = 14000;
+                                }
+                                else{
+                                    baseprice = 5000;
+                                }
+                                if(detailsData.features[i]?.properties?.facilities?.internet_access && detailsData.features[i]?.properties?.facilities?.wheelchair){
+                                    baseprice += 5000;
+                                }
+                                else if(detailsData.features[i]?.properties?.facilities?.wheelchair){
+                                    baseprice += 2000;
+                                }
+                                else if (detailsData.features[i]?.properties?.facilities?.internet_access){
+                                    baseprice += 1000;
+                                }
                                 if (detailsData.features[i].properties.name){
-                                res.write(Buffer.from("Name : " + detailsData.features[i]?.properties?.name,'utf-8') + "\n");
-                                res.write(Buffer.from("Address : " + detailsData.features[i]?.properties?.formatted,'utf-8') + "\n");
-                                    if (detailsData.features[i].properties.datasource.raw.email){
-                                        res.write(Buffer.from("Email ID : " + detailsData.features[i].properties.datasource.raw.email,'utf-8')+"\n");
-                                    }
-                                    if (detailsData.features[i].properties.datasource.raw.phone){
-                                        res.write(Buffer.from("Phone NO : " + detailsData.features[i].properties.datasource.raw.phone,'utf-8')+"\n");
-                                        }
-                                    if (detailsData.features[i].properties.website){
-                                        res.write(Buffer.from("Website : "+ detailsData.features[i].properties.website,'utf-8')+"\n");
-                                    }
-                                    let baseprice;
-                                    if (type == "apartment"){
-                                         baseprice = 14000;
-                                    }
-                                    else{
-                                        baseprice = 5000;
-                                    }
-                                    if(detailsData.features[i]?.properties?.facilities?.internet_access && detailsData.features[i]?.properties?.facilities?.wheelchair){
-                                        baseprice += 5000;
-                                    }
-                                    else if(detailsData.features[i]?.properties?.facilities?.wheelchair){
-                                        baseprice += 2000;
-                                    }
-                                    else if (detailsData.features[i]?.properties?.facilities?.internet_access){
-                                        baseprice += 1000;
-                                    }
-                                    res.write(Buffer.from("The approximate price is:"+baseprice+"-"+(baseprice+5000),'utf-8')+ "\n");
-                                    res.write("\n");
+                                const data = {
+                                    "Name":detailsData.features[i]?.properties?.name,
+                                    "Address":  detailsData.features[i]?.properties?.formatted,
+                                    "Email":  detailsData.features[i].properties.datasource.raw.email || null,  //if the value is undefined or falsy return null
+                                    "Phone": detailsData.features[i].properties.datasource.raw.phone || null,
+                                    "Website": detailsData.features[i].properties.website || null,
+                                    "price_range": baseprice+"-"+(baseprice+5000)
+                                }
+                                result.push(data);
                             }
                             }
-                            
-                            //we cant write json format so converting it to string
-                            // res.write(`Details: ${JSON.stringify(detailsData)}`);
-                            res.end();
+                            res.render('display',{results:result});    // Pass the array to the EJS file
                         } catch (error) {
                             console.log(error);
                             res.write("Error parsing second API response.");
