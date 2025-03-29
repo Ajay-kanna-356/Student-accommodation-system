@@ -22,6 +22,7 @@
                     <p><b>Website:</b> <a href="<%= result.Website %>"><%= result.Website %></a></p>
                 <% } %>
                 <p><b>Approx Price:</b> <%= result.price_range %></p>
+                <p><b>Distance:</b><%= result.distance.toFixed(1) %> Kms </p>
             </div>
             <hr>
         <% }); %>

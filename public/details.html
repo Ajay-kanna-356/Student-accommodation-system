@@ -6,12 +6,13 @@
     <title>Student accomodation</title>
 </head>
 <body>
+<div style="display: flex;justify-content: center;margin: 200px 500px;padding: 25px;border: 2px solid black;">
 <form id="searchForm" action="/details" method="post">
     <label>Enter address:</label>
-    <input type="text" name="address">
+    <input type="text" name="address" required >
     <br><br>
     <label>Enter radius in Kilometers:</label>
-    <input type="number" min="1" name="radius">
+    <input type="number" min="1" name="radius" required>
     <!-- for getting type hostel or apartment -->
     <input type="hidden" id="valueField" name="value">   
     <br><br>
@@ -28,7 +29,7 @@
     <br><br>
     <button type="submit">Search</button>
 </form>
-
+</div>
 <script>
     const urlParams = new URLSearchParams(window.location.search); 
     const val = urlParams.get("value");
