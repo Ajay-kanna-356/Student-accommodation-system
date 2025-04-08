@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <div style="display: flex;justify-content:center;">
+    <div class="container">
         <!-- Query parameters passing data through URL -->
-        <a href="/details?value=apartment"><button style="margin: 200px 100px;padding: 50px 45px;">Apartment</button></a> 
-        <a href ="/details?value=hostel"><button style="margin: 200px 100px;padding: 50px;">Hostel</button></a>
+        <button class="apartment" onclick="window.location.href='/details?value=apartment'"></button>
+        <button class = "hostel" onclick="window.location.href='/details?value=hostel'"></button>
     </div>
 </body>
 </html>

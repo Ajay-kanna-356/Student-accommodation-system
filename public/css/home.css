@@ -1,0 +1,39 @@
+.container{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap:120px;
+}
+.apartment{
+    background-image: url("/images/apartment.png");
+    background-size:contain;
+    background-position: center;
+    opacity: 0.93;
+}
+.apartment:hover{
+    opacity: 1;
+    border:2px solid rgb(225, 229, 10);
+}
+.hostel{
+    background-image: url("/images/hostel.png");
+    background-size:cover;
+    background-position: center;
+    opacity: 0.93;
+}
+.hostel:hover{
+    opacity: 1;
+    border:2px solid rgb(225, 229, 10);
+}
+button{
+    height: 12.5rem;
+    width: 12rem;
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+    font-size: large;
+}
+body{
+    background-color: #A6F1E0;
+}

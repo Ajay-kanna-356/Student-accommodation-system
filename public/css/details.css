@@ -1,0 +1,47 @@
+.form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+html{
+    background-color:#A6F1E0;
+}
+.box{
+    border: 2px solid #73C7C7;
+    padding: 40px 50px 20px 50px;
+    border-radius: 10px;
+    background-color:#F4F8D3;
+}
+button{
+    background-color: #F7CFD8;
+    width:60px;
+    height: 30px;
+    margin-left: 150px;
+}
+.loading{
+    display: none;
+    top: 0;
+    left:0;
+    width: 100%;
+    height:100%;
+     z-index:9999; /* to make it appear front  */
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(237, 243, 247, 0.478);
+}
+.spinner{
+    border:8px solid #73C7C7;
+    border-top:8px solid #F7CFD8;
+    border-radius: 50%;
+    width:60px;
+    height:60px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin{
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg)}
+}
+

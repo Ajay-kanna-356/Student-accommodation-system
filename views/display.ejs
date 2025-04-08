@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Details</title>
+    <link rel="stylesheet" href="/css/display.css">
 </head>
 <body>
-    <h1>Results:</h1>
     <% if (results.length > 0) { %>
         <% results.forEach((result) => { %>
-            <div>
+            <div class="box">
                 <p><b>Name:</b> <%= result.Name %></p>
                 <p><b>Address:</b> <%= result.Address %></p>
                 <% if (result.Phone) { %>
@@ -24,17 +24,10 @@
                 <p><b>Approx Price:</b> <%= result.price_range %></p>
                 <p><b>Distance:</b><%= result.distance.toFixed(1) %> Kms </p>
             </div>
-            <hr>
         <% }); %>
     <% } else { %>
-        <p>No results found.</p>
+        <div class="Noresults"> <p>No results found.</p></div>
     <% } %>
+    <button onclick="window.location.href='/'">Back</button>
 </body>
 </html>
-
-
-
-
-
-<!-- <% %> when you want to run JavaScript code -->
-<!-- <%= %> when you want to output a value directly to the HTML -->

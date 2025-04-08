@@ -3,37 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/details.css">
     <title>Student accomodation</title>
 </head>
 <body>
-<div style="display: flex;justify-content: center;margin: 200px 500px;padding: 25px;border: 2px solid black;">
-<form id="searchForm" action="/details" method="post">
-    <label>Enter address:</label>
-    <input type="text" name="address" required >
-    <br><br>
-    <label>Enter radius in Kilometers:</label>
-    <input type="number" min="1" name="radius" required>
-    <!-- for getting type hostel or apartment -->
-    <input type="hidden" id="valueField" name="value">   
-    <br><br>
-    <label>Facilities: </label>
-    <label>AC</label>
-    <input type="checkbox" name="AC">
-    <label>Free Internet Access</label>
-    <input type="checkbox" name="internet">
-    <label>Lift</label>
-    <input type="checkbox" name="lift">
-    <br><br>
-    <label>Enter no of results:</label>
-    <input type="number" min="1" name="no_results" placeholder="Default value is 20">
-    <br><br>
-    <button type="submit">Search</button>
-</form>
+
+<!-- Loader Overlay -->
+<div class="loading">
+    <div class="spinner"></div>
 </div>
+
+<div class="form">
+    <form id="searchForm" action="/details" method="post">
+        <div class="box">
+            <label>Enter address:</label>
+            <input type="text" name="address" required >
+            <br><br>
+            <label>Enter radius in Kilometers:</label>
+            <input type="number" min="1" name="radius" required>
+            <!-- for getting type hostel or apartment -->
+            <input type="hidden" id="valueField" name="value">   
+            <br><br>
+            <label>Facilities: </label>
+            <label>AC</label>
+            <input type="checkbox" name="AC">
+            <label>Free Internet Access</label>
+            <input type="checkbox" name="internet">
+            <label>Lift</label>
+            <input type="checkbox" name="lift">
+            <br><br>
+            <label>Enter no of results:</label>
+            <input type="number" min="1" name="no_results" placeholder="Default value is 20">
+            <br><br>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+</div>
+
 <script>
     const urlParams = new URLSearchParams(window.location.search); 
     const val = urlParams.get("value");
     document.getElementById("valueField").value = val;
+
+    // Show loader on form submit
+    document.getElementById("searchForm").addEventListener("submit",function(){
+        document.querySelector(".loading").style.display = "flex";
+    });
 </script>
 </body>
 </html>

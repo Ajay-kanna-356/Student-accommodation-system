@@ -1,0 +1,31 @@
+html{
+    background-color: #A6F1E0;
+}
+.box{
+    display: flex;
+    background-color:#F4F8D3 ;
+    justify-content: center;
+    flex-direction: column;
+    margin: 30px 350px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border: 2px solid #73C7C7;
+    border-radius: 10px;
+    box-shadow:5px 5px 10px #73C7C7;
+}
+button{
+    background-color: #F7CFD8;
+    width:70px;
+    height: 35px;
+    display:block;
+    margin:0 auto; 
+}
+.Noresults{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: 5rem;
+    margin-top: 200px;
+    color: #F4F8D3;
+}

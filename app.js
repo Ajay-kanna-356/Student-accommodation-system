@@ -2,8 +2,8 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const https = require("https");
 const path = require('path');
-
 app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views')); // Set views folder
 app.use(express.urlencoded({ extended: true })); // Makes form data accessible via req.body.
@@ -154,8 +154,7 @@ app.post("/details", (req, res) => {
                             }
                             
                             // Example: Get top 5 nearest accommodations
-                            const k = 5;
-                            result = kNearestNeighbors(result, lat, lon, k);
+                            result = kNearestNeighbors(result, lat, lon, results);
                             
                             res.render('display', { results: result }); // Pass sorted array to EJS file
                         } catch (error) {
