@@ -1,24 +1,42 @@
 html{
-    background-color: #A6F1E0;
+    background-color: #252A34;
+}
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 .box{
     display: flex;
-    background-color:#F4F8D3 ;
+    background-color: #FF2E63;
+    color:#EAEAEA;
     justify-content: center;
     flex-direction: column;
     margin: 30px 350px;
     padding-left: 25px;
     padding-right: 25px;
-    border: 2px solid #73C7C7;
+    border: 2px solid #FF2E63;
     border-radius: 10px;
-    box-shadow:5px 5px 10px #73C7C7;
+    box-shadow:0 0 10px #FF2E63;
+}
+.back{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+button:hover {
+    background: #06e5e1;
+    transform: scale(1.1);
 }
 button{
-    background-color: #F7CFD8;
-    width:70px;
-    height: 35px;
-    display:block;
-    margin:0 auto; 
+    background-color: #08D9D6;
+    color: #EAEAEA;
+    width:7rem;
+    height: 3rem;
+    border-color: #08D9D6;
+    margin-bottom: 1rem;
+    box-shadow:0 0 0.5rem #08D9D6;
+    border-radius: 0.5rem;
 }
 .Noresults{
     display: flex;

@@ -17,6 +17,12 @@ app.get("/details", function (req, res) {
     res.sendFile(__dirname + "/public/details.html");
 });
 
+app.get("/location",function(req, res){
+    const lat = req.query.lat;
+    const lon = req.query.lon;
+    const name = req.query.name;
+    res.sendFile(__dirname+"/public/locate.html");
+});
 app.post("/details", (req, res) => {
     const ac = req.body.AC;
     const lift = req.body.lift;
@@ -33,7 +39,6 @@ app.post("/details", (req, res) => {
         cond = null;
     }
 
-    console.log(cond);
     const results = req.body.no_results || 20;
     const type = req.body.value;
     const a = req.body.address;
@@ -153,7 +158,7 @@ app.post("/details", (req, res) => {
                                 return heap.getKNearest();
                             }
                             
-                            // Example: Get top 5 nearest accommodations
+                            // Example: Get top K nearest accommodations
                             result = kNearestNeighbors(result, lat, lon, results);
                             
                             res.render('display', { results: result }); // Pass sorted array to EJS file

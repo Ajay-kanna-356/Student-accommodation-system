@@ -23,11 +23,16 @@
                 <% } %>
                 <p><b>Approx Price:</b> <%= result.price_range %></p>
                 <p><b>Distance:</b><%= result.distance.toFixed(1) %> Kms </p>
+                <div class="button-container">
+                <button onclick="window.location.href='/location?lat=<%= result.lat %>&lon=<%= result.lon %>&name=<%= result.Name %>'">📍 View on map</button>
+                </div>
             </div>
         <% }); %>
     <% } else { %>
         <div class="Noresults"> <p>No results found.</p></div>
     <% } %>
+    <div class="back">
     <button onclick="window.location.href='/'">Back</button>
+    </div>
 </body>
 </html>

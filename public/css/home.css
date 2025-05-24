@@ -4,27 +4,66 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    gap:120px;
+    gap:5rem;
+}
+h1{
+    font-size:2.5rem;
+    color: #00ffd5;
+    font-family: fantasy;
+    text-shadow: 1px 1px #00ffd5;
+}
+.buttons{
+display: flex;
+flex-direction: row;
+gap:3rem;
+}
+.box{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    height: 100vh;
+    gap:2rem;
+    height: 16rem;
+    width: 35rem;
+    border: 2px solid hsl(180, 2%, 10%);
+    box-shadow:0 0 10px #00ffd5;
+    border-radius: 1rem;
 }
 .apartment{
-    background-image: url("/images/apartment.png");
-    background-size:contain;
-    background-position: center;
-    opacity: 0.93;
+    width: 10rem;
+    height:5rem;
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    text-align: center;
+    border-radius: 2rem;
+    border: 2px solid #00ffd5;
+    background-color: black;
+    color: #00ffd5;
 }
 .apartment:hover{
-    opacity: 1;
-    border:2px solid rgb(225, 229, 10);
+    border:2px solid #00ffd5;
+    background-color: #00ffd5;
+    color: black;
+    transition: 0.7s;
 }
 .hostel{
-    background-image: url("/images/hostel.png");
-    background-size:cover;
-    background-position: center;
-    opacity: 0.93;
+    width: 10rem;
+    height:5rem;
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    text-align: center;
+    border-radius: 2rem;
+    border: 2px solid #00ffd5;
+    background-color: black;
+    color: #00ffd5;
 }
 .hostel:hover{
-    opacity: 1;
-    border:2px solid rgb(225, 229, 10);
+    border:2px solid #00ffd5;
+    background-color: #00ffd5;
+    color: black;
+    transition: 0.7s;
 }
 button{
     height: 12.5rem;
@@ -35,5 +74,5 @@ button{
     font-size: large;
 }
 body{
-    background-color: #A6F1E0;
+    background-color: black;
 }
