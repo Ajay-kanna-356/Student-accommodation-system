@@ -41,9 +41,7 @@ Each result includes:
 | Maps        | OpenStreetMap (via Geoapify) |
 | View Engine | EJS                    |
 
----
-## Contributors:
-- Aishwarya.G
+
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
 
